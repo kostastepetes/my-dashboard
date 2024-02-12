@@ -1,10 +1,17 @@
 <template>
-    <div>
-      <p>{{ minutes }}:{{ seconds }}</p>
-      <button @click="startTimer">Start</button>
-      <button @click="stopTimer">Stop</button>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <h3>Pomodoro Timer</h3>
+        <p class="display-4">{{ minutes }}:{{ seconds }}</p>
+        <div class="mt-4">
+          <button @click="startTimer" class="btn btn-primary mr-2">Start</button>
+          <button @click="stopTimer" class="btn btn-secondary">Stop</button>
+        </div>
+      </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import { defineComponent, ref } from 'vue'
