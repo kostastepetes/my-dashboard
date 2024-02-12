@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <h3>Spotify Playlist</h3>
-    <input v-model="playlistUrl" placeholder="Enter Spotify playlist URL" />
-    <iframe v-if="playlistUrl" :src="embeddedPlaylistUrl" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-    <ul v-else>
-      <li v-for="track in tracks" :key="track.id">{{ track.name }}</li>
-    </ul>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Spotify Playlist</h3>
+        <input v-model="playlistUrl" class="form-control mb-2" placeholder="Enter Spotify playlist URL" />
+        <iframe v-if="playlistUrl" :src="embeddedPlaylistUrl" class="w-100 h-auto" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <ul v-else class="list-group">
+          <li v-for="track in tracks" :key="track.id" class="list-group-item">{{ track.name }}</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
   

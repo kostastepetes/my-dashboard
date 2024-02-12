@@ -11,10 +11,11 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "axios": "^1.6.7",
+    "bootstrap": "^5.3.2",
     "pinia": "^2.1.7",
     "v-calendar": "^3.1.2",
     "vue": "^3.4.15",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",

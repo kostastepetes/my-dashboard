@@ -4,21 +4,20 @@
       <h1>My Dashboard</h1>
     </header>
     <main>
-      <div class="grid-container">
-        <!-- Dashboard boxes -->
-        <NoteBox />
-        <PomodoroBox />
-        <CalendarBox />
-        <SpotifyBox />
-        <WeatherBox />
-        <KanbanBox />
-        <FavoritesBox />
+      <div class="container mt-4">
+        <draggable v-model="components" class="row" @start="drag=true" @end="drag=false">
+          <template #item="{ element }">
+            <component :is="element.component" />
+          </template>
+        </draggable>
       </div>
     </main>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import draggable from 'vuedraggable'
 import NoteBox from './components/NoteBox.vue'
 import PomodoroBox from './components/PomodoroBox.vue'
 import CalendarBox from './components/CalendarBox.vue'
@@ -26,6 +25,16 @@ import SpotifyBox from './components/SpotifyBox.vue'
 import WeatherBox from './components/WeatherBox.vue'
 import KanbanBox from './components/KanbanBox.vue'
 import FavoritesBox from './components/FavoritesBox.vue'
+
+const components = ref([
+  { name: 'NoteBox', component: NoteBox },
+  { name: 'PomodoroBox', component: PomodoroBox },
+  { name: 'CalendarBox', component: CalendarBox },
+  { name: 'SpotifyBox', component: SpotifyBox },
+  { name: 'WeatherBox', component: WeatherBox },
+  { name: 'KanbanBox', component: KanbanBox },
+  { name: 'FavoritesBox', component: FavoritesBox }
+])
 </script>
 
 <style scoped>
@@ -38,16 +47,10 @@ header {
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 20px 0;
+  padding:   20px   0;
 }
 
 main {
-  padding: 20px;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px; /* Changed grid-gap to gap */
+  padding:   20px;
 }
 </style>
