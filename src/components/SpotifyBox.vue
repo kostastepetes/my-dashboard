@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <h3>Spotify Playlist</h3>
         <input v-model="playlistUrl" class="form-control mb-2" placeholder="Enter Spotify playlist URL" />
         <iframe v-if="playlistUrl" :src="embeddedPlaylistUrl" class="w-100 h-auto" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>

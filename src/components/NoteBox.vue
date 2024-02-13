@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <h3>Notes</h3>
         <textarea v-model="currentNote" class="form-control mb-2"></textarea>
         <button @click="saveNote" class="btn btn-primary mb-2">Save</button>

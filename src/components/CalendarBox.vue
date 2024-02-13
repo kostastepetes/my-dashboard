@@ -1,9 +1,9 @@
 <template>
   <div class="container mt-4">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <h3>Calendar</h3>
-        <DatePicker v-model="selectedDate" class="mb-3" />
+        <DatePicker v-model="selectedDate" class="mb-3"/>
         <form @submit.prevent="addEvent" class="mb-3">
           <div class="input-group">
             <input v-model="newEvent.title" placeholder="Event title" required class="form-control" />
@@ -49,3 +49,10 @@ const removeEvent = (index) => {
 
 const events = eventsStore.events;
 </script>
+
+<style scoped>
+.vc-header__title {
+  background-color: white !important;
+  color: black !important; /* Adjust the text color as needed */
+}
+</style>

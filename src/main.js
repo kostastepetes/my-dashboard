@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { setupCalendar } from 'v-calendar';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './style.css'
 import App from './App.vue'

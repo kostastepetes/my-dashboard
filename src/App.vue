@@ -4,10 +4,12 @@
       <h1>My Dashboard</h1>
     </header>
     <main>
-      <div class="container mt-4">
+      <div class="container">
         <draggable v-model="components" class="row" @start="drag=true" @end="drag=false">
           <template #item="{ element }">
-            <component :is="element.component" />
+            <div class="col-sm-12 col-md-4"> 
+              <component :is="element.component" class="border border-dark p-4 rounded"/>
+            </div>
           </template>
         </draggable>
       </div>
