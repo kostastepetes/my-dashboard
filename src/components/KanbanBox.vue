@@ -1,39 +1,66 @@
 <template>
-  <div class="kanban-board">
-    <div class="kanban-column">
-      <h3>To Do</h3>
-      <draggable v-model="kanbanStore.todoTasks" @end="onDragEnd('todo')">
-        <template #item="{ element, index }">
-          <div :key="element.id" class="kanban-task">
-            {{ element.title }}
-            <button @click="removeTask('todo', index)">Remove</button>
+  <div class="container mt-4">
+    <div class="row">
+      <h3>Kanban Board</h3>
+      <div class="col-md-4 px-2">
+        <div class="card px-0">
+          <div class="card-header px-0">
+            <h3>To Do</h3>
           </div>
-        </template>
-      </draggable>
-      <input v-model="newTaskTitle" placeholder="New task" @keyup.enter="addTask">
-      <button @click="addTask">Add Task</button>
-    </div>
-    <div class="kanban-column">
-      <h3>In Progress</h3>
-      <draggable v-model="kanbanStore.inProgressTasks" @end="onDragEnd('in-progress')">
-        <template #item="{ element, index }">
-          <div :key="element.id" class="kanban-task">
-            {{ element.title }}
-            <button @click="removeTask('in-progress', index)">Remove</button>
+          <div class="card-body">
+            <draggable v-model="kanbanStore.todoTasks" @end="onDragEnd('todo')">
+              <template #item="{ element, index }">
+                <div :key="element.id" class="card mb-2">
+                  <div class="card-body">
+                    {{ element.title }}
+                    <button @click="removeTask('todo', index)" class="btn btn-danger btn-sm float-right">Remove</button>
+                  </div>
+                </div>
+              </template>
+            </draggable>
+            <input v-model="newTaskTitle" class="form-control mt-2" placeholder="New task" @keyup.enter="addTask">
+            <button @click="addTask" class="btn btn-primary mt-2">Add Task</button>
           </div>
-        </template>
-      </draggable>
-    </div>
-    <div class="kanban-column">
-      <h3>Done</h3>
-      <draggable v-model="kanbanStore.doneTasks" @end="onDragEnd('done')">
-        <template #item="{ element, index }">
-          <div :key="element.id" class="kanban-task">
-            {{ element.title }}
-            <button @click="removeTask('done', index)">Remove</button>
+        </div>
+      </div>
+      <div class="col-md-4 px-2">
+        <div class="card px-0">
+          <div class="card-header px-0">
+            <h3>In Progress</h3>
           </div>
-        </template>
-      </draggable>
+          <div class="card-body">
+            <draggable v-model="kanbanStore.inProgressTasks" @end="onDragEnd('in-progress')">
+              <template #item="{ element, index }">
+                <div :key="element.id" class="card mb-2">
+                  <div class="card-body">
+                    {{ element.title }}
+                    <button @click="removeTask('in-progress', index)" class="btn btn-danger btn-sm float-right">Remove</button>
+                  </div>
+                </div>
+              </template>
+            </draggable>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 px-2">
+        <div class="card px-0">
+          <div class="card-header px-0">
+            <h3>Done</h3>
+          </div>
+          <div class="card-body">
+            <draggable v-model="kanbanStore.doneTasks" @end="onDragEnd('done')">
+              <template #item="{ element, index }">
+                <div :key="element.id" class="card mb-2">
+                  <div class="card-body">
+                    {{ element.title }}
+                    <button @click="removeTask('done', index)" class="btn btn-danger btn-sm float-right">Remove</button>
+                  </div>
+                </div>
+              </template>
+            </draggable>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -86,20 +113,15 @@ export default {
 </script>
 
 <style scoped>
-.kanban-board {
-  display: flex;
-  justify-content: space-around;
+.card {
+  box-shadow:  0  4px  8px rgba(0,  0,  0,  0.1); /* Optional: Add shadow to cards */
 }
 
-.kanban-column {
-  border:   1px solid #ccc;
-  padding:   10px;
-  width:   30%;
+.card-body {
+  padding:  1rem; /* Increase padding inside card body */
 }
 
-.kanban-task {
-  margin-bottom:   10px;
-  padding:   10px;
-  border:   1px solid #ccc;
+.card .btn {
+  margin-top:  0.5rem; /* Add some space below the buttons */
 }
 </style>
