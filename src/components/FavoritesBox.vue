@@ -7,7 +7,7 @@
         <button @click="addLink" class="btn btn-primary mb-2">Add Link</button>
         <ul class="list-group">
           <li v-for="(link, index) in links" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
-            <a :href="link" target="_blank" class="text-decoration-none">{{ link }}</a>
+            <a :href="getFullUrl(link)" target="_blank" class="text-decoration-none">{{ link }}</a>
             <button @click="removeLink(index)" class="btn btn-danger">Remove</button>
           </li>
         </ul>
@@ -16,23 +16,42 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useFavoritesStore } from '../store'
+<script>
+import { ref } from 'vue';
+import { useFavoritesStore } from '../store/favorites'; // Adjust the import path to match your store location
 
-const newLink = ref('')
-const favoritesStore = useFavoritesStore()
+export default {
+  setup() {
+    const favoritesStore = useFavoritesStore();
+    const newLink = ref('');
 
-const addLink = () => {
-  if (newLink.value.trim() !== '') {
-    favoritesStore.addLink(newLink.value.trim())
-    newLink.value = ''
-  }
-}
+    const addLink = () => {
+      if (newLink.value) {
+        favoritesStore.addLink(newLink.value);
+        newLink.value = '';
+      }
+    };
 
-const removeLink = (index) => {
-  favoritesStore.removeLink(index)
-}
+    const removeLink = (index) => {
+      favoritesStore.removeLink(index);
+    };
 
-const links = favoritesStore.links
+    const getFullUrl = (link) => {
+      // Check if the link already includes the protocol
+      if (!/^https?:\/\//i.test(link)) {
+        // Prepend the protocol if it's missing
+        return `http://${link}`;
+      }
+      return link;
+    };
+
+    return {
+      links: favoritesStore.links,
+      newLink,
+      addLink,
+      removeLink,
+      getFullUrl,
+    };
+  },
+};
 </script>
