@@ -21,19 +21,19 @@
 import { ref } from 'vue'
 import draggable from 'vuedraggable'
 import NoteBox from './components/NoteBox.vue'
-import KanbanBox from './components/KanbanBox.vue'
-import PomodoroBox from './components/PomodoroBox.vue'
-import CalendarBox from './components/CalendarBox.vue'
-import SpotifyBox from './components/SpotifyBox.vue'
 import FavoritesBox from './components/FavoritesBox.vue'
+import KanbanBox from './components/KanbanBox.vue'
+import CalendarBox from './components/CalendarBox.vue'
+import PomodoroBox from './components/PomodoroBox.vue'
+import SpotifyBox from './components/SpotifyBox.vue'
 
 const components = ref([
   { name: 'NoteBox', component: NoteBox },
+  { name: 'FavoritesBox', component: FavoritesBox },
   { name: 'KanbanBox', component: KanbanBox },
-  { name: 'PomodoroBox', component: PomodoroBox },
   { name: 'CalendarBox', component: CalendarBox },
-  { name: 'SpotifyBox', component: SpotifyBox },
-  { name: 'FavoritesBox', component: FavoritesBox }
+  { name: 'PomodoroBox', component: PomodoroBox },
+  { name: 'SpotifyBox', component: SpotifyBox }
 ])
 </script>
 

@@ -1,12 +1,13 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const usePlaylistStore = defineStore('playlist', {
   state: () => ({
-    playlistUrl: '',
+    playlistUrl: localStorage.getItem('spotifyPlaylistUrl') || '',
   }),
   actions: {
     setPlaylistUrl(url) {
-      this.playlistUrl = url
+      this.playlistUrl = url;
+      localStorage.setItem('spotifyPlaylistUrl', url);
     },
   },
-})
+});
