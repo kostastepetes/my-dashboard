@@ -13,6 +13,7 @@
                 <div :key="element.id" class="card mb-2">
                   <div class="card-body">
                     {{ element.title }}
+                    <button @click="moveTask('todo', index, 'in-progress')" class="btn btn-info btn-sm float-right">→</button>
                     <button @click="removeTask('todo', index)" class="btn btn-danger btn-sm float-right">Remove</button>
                   </div>
                 </div>
@@ -34,6 +35,8 @@
                 <div :key="element.id" class="card mb-2">
                   <div class="card-body">
                     {{ element.title }}
+                    <button @click="moveTask('in-progress', index, 'todo')" class="btn btn-info btn-sm float-left">←</button>
+                    <button @click="moveTask('in-progress', index, 'done')" class="btn btn-info btn-sm float-right">→</button>
                     <button @click="removeTask('in-progress', index)" class="btn btn-danger btn-sm float-right">Remove</button>
                   </div>
                 </div>
@@ -53,6 +56,7 @@
                 <div :key="element.id" class="card mb-2">
                   <div class="card-body">
                     {{ element.title }}
+                    <button @click="moveTask('done', index, 'in-progress')" class="btn btn-info btn-sm float-left">←</button>
                     <button @click="removeTask('done', index)" class="btn btn-danger btn-sm float-right">Remove</button>
                   </div>
                 </div>
@@ -93,35 +97,42 @@ export default {
       kanbanStore.removeTask(column, index);
     };
 
-    const onDragEnd = (column) => (event) => {
-      if (event.to !== event.from) {
-        const taskId = event.item.id;
-        const newStatus = column === 'todo' ? 'in-progress' : column === 'in-progress' ? 'done' : 'done';
-        kanbanStore.updateTaskStatus(taskId, newStatus);
-      }
-    };
+    const moveTask = (currentColumn, index) => {
+  // Ensure that the currentColumn parameter matches the property names in the state
+  if (currentColumn === 'todo') {
+    const task = kanbanStore.todoTasks[index];
+    kanbanStore.updateTaskStatus(task.id, 'in-progress');
+  } else if (currentColumn === 'in-progress') {
+    const task = kanbanStore.inProgressTasks[index];
+    kanbanStore.updateTaskStatus(task.id, 'done');
+  } else if (currentColumn === 'done') {
+    // Assuming that tasks cannot be moved from the 'done' column
+    return;
+  }
+};
 
     return {
       kanbanStore,
       newTaskTitle,
       addTask,
       removeTask,
-      onDragEnd,
+      moveTask,
     };
   },
 };
 </script>
 
+
 <style scoped>
 .card {
-  box-shadow:  0  4px  8px rgba(0,  0,  0,  0.1); /* Optional: Add shadow to cards */
+  box-shadow:   0   4px   8px rgba(0,   0,   0,   0.1); /* Optional: Add shadow to cards */
 }
 
 .card-body {
-  padding:  1rem; /* Increase padding inside card body */
+  padding:   1rem; /* Increase padding inside card body */
 }
 
 .card .btn {
-  margin-top:  0.5rem; /* Add some space below the buttons */
+  margin-top:   0.5rem; /* Add some space below the buttons */
 }
 </style>

@@ -24,18 +24,25 @@ export const useKanbanStore = defineStore({
       this.saveTasksToLocalStorage();
     },
     updateTaskStatus(taskId, newStatus) {
-      const task = this.todoTasks.find(task => task.id === taskId);
+      // Find the task in the appropriate array based on its current status
+      let task;
+      if (newStatus === 'in-progress') {
+        task = this.todoTasks.find(t => t.id === taskId);
+        if (task) {
+          this.todoTasks = this.todoTasks.filter(t => t.id !== taskId);
+          this.inProgressTasks.push(task);
+        }
+      } else if (newStatus === 'done') {
+        task = this.inProgressTasks.find(t => t.id === taskId);
+        if (task) {
+          this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== taskId);
+          this.doneTasks.push(task);
+        }
+      }
+      // No need to handle 'todo' status here since tasks are only moved forward
       if (task) {
         task.status = newStatus;
         this.saveTasksToLocalStorage();
-      }
-      // Move the task to the appropriate array based on the new status
-      if (newStatus === 'in-progress') {
-        this.inProgressTasks.push(task);
-        this.todoTasks = this.todoTasks.filter(t => t.id !== taskId);
-      } else if (newStatus === 'done') {
-        this.doneTasks.push(task);
-        this.todoTasks = this.todoTasks.filter(t => t.id !== taskId);
       }
     },
     saveTasksToLocalStorage() {
