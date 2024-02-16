@@ -8,17 +8,13 @@
             <h3>To Do</h3>
           </div>
           <div class="card-body">
-            <draggable v-model="kanbanStore.todoTasks" @end="onDragEnd('todo')">
-              <template #item="{ element, index }">
-                <div :key="element.id" class="card mb-2">
-                  <div class="card-body">
-                    {{ element.title }}
-                    <button @click="moveTask('todo', index, 'in-progress')" class="btn btn-info btn-sm float-right">→</button>
-                    <button @click="removeTask('todo', index)" class="btn btn-danger btn-sm float-right">Remove</button>
-                  </div>
-                </div>
-              </template>
-            </draggable>
+            <div v-for="(task, index) in kanbanStore.todoTasks" :key="task.id" class="card mb-2">
+              <div class="card-body">
+                {{ task.title }}
+                <button @click="moveTask('todo', index, 'in-progress')" class="btn btn-info btn-sm float-right">→</button>
+                <button @click="removeTask('todo', index)" class="btn btn-danger btn-sm float-right">Remove</button>
+              </div>
+            </div>
             <input v-model="newTaskTitle" class="form-control mt-2" placeholder="New task" @keyup.enter="addTask">
             <button @click="addTask" class="btn btn-primary mt-2">Add Task</button>
           </div>
@@ -30,18 +26,13 @@
             <h3>In Progress</h3>
           </div>
           <div class="card-body">
-            <draggable v-model="kanbanStore.inProgressTasks" @end="onDragEnd('in-progress')">
-              <template #item="{ element, index }">
-                <div :key="element.id" class="card mb-2">
-                  <div class="card-body">
-                    {{ element.title }}
-                    <button @click="moveTask('in-progress', index, 'todo')" class="btn btn-info btn-sm float-left">←</button>
-                    <button @click="moveTask('in-progress', index, 'done')" class="btn btn-info btn-sm float-right">→</button>
-                    <button @click="removeTask('in-progress', index)" class="btn btn-danger btn-sm float-right">Remove</button>
-                  </div>
-                </div>
-              </template>
-            </draggable>
+            <div v-for="(task, index) in kanbanStore.inProgressTasks" :key="task.id" class="card mb-2">
+              <div class="card-body">
+                {{ task.title }}
+                <button @click="moveTask('in-progress', index, 'done')" class="btn btn-info btn-sm float-right">→</button>
+                <button @click="removeTask('in-progress', index)" class="btn btn-danger btn-sm float-right">Remove</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -51,17 +42,12 @@
             <h3>Done</h3>
           </div>
           <div class="card-body">
-            <draggable v-model="kanbanStore.doneTasks" @end="onDragEnd('done')">
-              <template #item="{ element, index }">
-                <div :key="element.id" class="card mb-2">
-                  <div class="card-body">
-                    {{ element.title }}
-                    <button @click="moveTask('done', index, 'in-progress')" class="btn btn-info btn-sm float-left">←</button>
-                    <button @click="removeTask('done', index)" class="btn btn-danger btn-sm float-right">Remove</button>
-                  </div>
-                </div>
-              </template>
-            </draggable>
+            <div v-for="(task, index) in kanbanStore.doneTasks" :key="task.id" class="card mb-2">
+              <div class="card-body">
+                {{ task.title }}
+                <button @click="removeTask('done', index)" class="btn btn-danger btn-sm float-right">Remove</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -69,15 +55,12 @@
   </div>
 </template>
 
+
 <script>
 import { ref } from 'vue';
 import { useKanbanStore } from '../store/kanbanStore'; // Adjust the import path to match your store location
-import draggable from 'vuedraggable';
 
 export default {
-  components: {
-    draggable,
-  },
   setup() {
     const kanbanStore = useKanbanStore();
     const newTaskTitle = ref('');
@@ -97,19 +80,15 @@ export default {
       kanbanStore.removeTask(column, index);
     };
 
-    const moveTask = (currentColumn, index) => {
-  // Ensure that the currentColumn parameter matches the property names in the state
-  if (currentColumn === 'todo') {
+    const moveTask = (currentColumn, index, newColumn) => {
+  if (currentColumn === 'todo' && newColumn === 'in-progress') {
     const task = kanbanStore.todoTasks[index];
     kanbanStore.updateTaskStatus(task.id, 'in-progress');
-  } else if (currentColumn === 'in-progress') {
+  } else if (currentColumn === 'in-progress' && newColumn === 'done') {
     const task = kanbanStore.inProgressTasks[index];
     kanbanStore.updateTaskStatus(task.id, 'done');
-  } else if (currentColumn === 'done') {
-    // Assuming that tasks cannot be moved from the 'done' column
-    return;
-  }
-};
+      }
+    };
 
     return {
       kanbanStore,
