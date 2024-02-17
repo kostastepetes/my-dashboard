@@ -5,6 +5,8 @@
         <h3>Pomodoro Timer</h3>
         <p class="display-4">{{ minutes }}:{{ seconds }}</p>
         <div class="mt-4">
+          <input type="range" min="0" max="60" v-model="timerTime" class="slider" id="myRange">
+          <label for="myRange">{{ timerTime }} minutes</label>
           <button @click="startTimer" class="btn btn-primary mr-2">Start</button>
           <button @click="stopTimer" class="btn btn-secondary">Stop</button>
         </div>
@@ -17,18 +19,20 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, watch } from 'vue'
 
 export default defineComponent({
   setup() {
-    const minutes = ref(25)
+    const timerTime = ref(25) // New reactive variable for timer time
+    const minutes = ref(timerTime.value) // Use the timerTime value as the initial minutes
     const seconds = ref(0)
     let timer
-    const totalTime =  25 *  60 // Total time in seconds
+
+    const totalTime = computed(() => timerTime.value *  60) // Total time in seconds based on timerTime
 
     const progressValue = computed(() => {
-      const elapsedTime = (totalTime - ((minutes.value *  60) + seconds.value)) % totalTime
-      return (elapsedTime / totalTime) *  100
+      const elapsedTime = (totalTime.value - ((minutes.value *  60) + seconds.value)) % totalTime.value
+      return (elapsedTime / totalTime.value) *  100
     })
 
     const startTimer = () => {
@@ -36,6 +40,7 @@ export default defineComponent({
         if (seconds.value ===  0) {
           if (minutes.value ===  0) {
             clearInterval(timer)
+            alert("Time's up! Take a break") // Show alert when time runs out
             return
           }
           minutes.value--
@@ -50,7 +55,13 @@ export default defineComponent({
       clearInterval(timer)
     }
 
-    return { minutes, seconds, startTimer, stopTimer, progressValue }
+    // Watch for changes in timerTime and update minutes accordingly
+    watch(timerTime, (newTime) => {
+      minutes.value = newTime
+      seconds.value =  0
+    })
+
+    return { minutes, seconds, startTimer, stopTimer, progressValue, timerTime }
   },
 })
 </script>
@@ -74,5 +85,40 @@ progress::-webkit-progress-value {
 
 progress::-moz-progress-bar {
   background-color: #007bff;
+}
+
+/* Style the slider */
+.slider {
+  -webkit-appearance: none;
+  width:  100%;
+  height:  15px;
+  border-radius:  5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity:  0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity:  1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width:  25px;
+  height:  25px;
+  border-radius:  50%;
+  background: #bb2d3b;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width:  25px;
+  height:  25px;
+  border-radius:  50%;
+  background: #bb2d3b;
+  cursor: pointer;
 }
 </style>

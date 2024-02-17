@@ -7,8 +7,8 @@
       <div class="container">
         <draggable v-model="components" class="row" @start="drag=true" @end="drag=false">
           <template #item="{ element }">
-            <div class="col-sm-12 col-md-6"> 
-              <component :is="element.component" class="border border-dark p-4 rounded"/>
+            <div class="col-sm-12 col-md-6">  
+              <component :is="element.component" class="glassmorphism border border-dark p-4 rounded"/>
             </div>
           </template>
         </draggable>
@@ -52,5 +52,11 @@ header {
 
 main {
   padding:   20px;
+}
+.glassmorphism {
+  border-radius:  10px;
+  backdrop-filter: blur(60px);
+  box-shadow:  0  8px  32px  0 rgba(31,  38,  135,  0.37);
+  border:  1px solid rgba(255,  255,  255,  0.18);
 }
 </style>
