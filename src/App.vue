@@ -5,6 +5,7 @@
     </header>
     <main>
       <div class="container">
+        <vue-particles id="tsparticles" :options="particlesConfig" :particlesInit="particlesInit" :particlesLoaded="particlesLoaded" />
         <draggable v-model="components" class="row" @start="drag=true" @end="drag=false">
           <template #item="{ element }">
             <div class="col-sm-12 col-md-6">  
@@ -26,6 +27,19 @@ import KanbanBox from './components/KanbanBox.vue'
 import CalendarBox from './components/CalendarBox.vue'
 import PomodoroBox from './components/PomodoroBox.vue'
 import SpotifyBox from './components/SpotifyBox.vue'
+import particlesConfig from "./assets/particles.json";
+
+import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
+
+const particlesInit = async engine => {
+    //await loadFull(engine);
+    await loadSlim(engine);
+};
+
+const particlesLoaded = async container => {
+    console.log("Particles container loaded", container);
+};
+
 
 const components = ref([
   { name: 'NoteBox', component: NoteBox },
@@ -58,5 +72,15 @@ main {
   backdrop-filter: blur(60px);
   box-shadow:  0  8px  32px  0 rgba(31,  38,  135,  0.37);
   border:  1px solid rgba(255,  255,  255,  0.18);
+}
+
+#tsparticles {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
