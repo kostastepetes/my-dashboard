@@ -73,14 +73,4 @@ main {
   box-shadow:  0  8px  32px  0 rgba(31,  38,  135,  0.37);
   border:  1px solid rgba(255,  255,  255,  0.18);
 }
-
-#tsparticles {
-  position: fixed;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
 </style>
