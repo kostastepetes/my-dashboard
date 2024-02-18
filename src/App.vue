@@ -15,6 +15,10 @@
         </draggable>
       </div>
     </main>
+    <footer>
+      <hr>
+      <p>Created by <a href="https://kostastepetes.netlify.app/" target="_blank">Kostas Tepetes</a> ⚡ © 2024</p>
+    </footer>
   </div>
 </template>
 
@@ -58,10 +62,11 @@ const components = ref([
 }
 
 header {
-  background-color: #333;
+  background-color: #fd1111;
   color: white;
   text-align: center;
   padding:   20px   0;
+  border-bottom: 2px solid white;
 }
 
 main {
