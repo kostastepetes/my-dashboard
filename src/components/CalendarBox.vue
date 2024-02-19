@@ -52,7 +52,5 @@ const events = eventsStore.events;
 
 
 <style scoped>
-.vc-title-wrapper .vc-title span {
-color: white!important;
-}
+
 </style>
