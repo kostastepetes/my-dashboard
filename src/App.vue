@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <h1>My Dashboard</h1>
-      <h4>Drag and drop the components to create your own dashboard</h4>
+      <h4>Drag and drop the components to re-arrange your personal dashboard</h4>
     </header>
     <main>
       <div class="container">
