@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-12">
-        <h3>Spotify Playlist</h3>
+        <h3>🎵 Spotify Playlist</h3>
         <input v-model="playlistUrl" class="form-control mb-2" placeholder="Enter Spotify playlist URL" />
         <iframe v-if="playlistUrl && playlistData" :src="embeddedPlaylistUrl" class="w-100" frameborder="0" allowtransparency="true" allow="encrypted-media" style="height: 80px!important;"></iframe>
         <ul v-else-if="playlistData" class="list-group">

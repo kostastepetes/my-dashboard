@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <div class="row">
-      <h3>Kanban Board</h3>
+      <h3>☑ Kanban Board</h3>
       <div class="col-md-4 px-2">
         <div class="card px-0">
           <div class="card-header px-0">

@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-12">
-        <h3>Favorites</h3>
+        <h3>💛 Favorites</h3>
         <input type="text" v-model="newLink" class="form-control mb-2" placeholder="Enter a link...">
         <button @click="addLink" class="btn btn-primary mb-2">Add Link</button>
         <ul class="list-group">

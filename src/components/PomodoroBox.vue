@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
-        <h3>Pomodoro Timer</h3>
+        <h3>⌛ Pomodoro Timer</h3>
         <p class="display-4">{{ minutes }}:{{ seconds }}</p>
         <div class="mt-4">
           <input type="range" min="0" max="60" v-model="timerTime" class="slider" id="myRange">

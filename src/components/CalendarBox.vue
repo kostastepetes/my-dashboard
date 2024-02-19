@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-12">
-        <h3>Calendar</h3>
+        <h3>📆 Calendar</h3>
         <DatePicker v-model="selectedDate" class="mb-3" :is-dark="true"/>
         <form @submit.prevent="addEvent" class="mb-3">
           <div class="input-group">
