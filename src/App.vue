@@ -72,6 +72,10 @@ header {
 main {
   padding:   20px;
 }
+
+footer {
+  position: relative;
+}
 .glassmorphism {
   border-radius:  10px;
   backdrop-filter: blur(60px);
