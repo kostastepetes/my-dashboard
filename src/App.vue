@@ -2,6 +2,7 @@
   <div id="app">
     <header>
       <h1>My Dashboard</h1>
+      <h4>Drag and drop the components to create your own dashboard</h4>
     </header>
     <main>
       <div class="container">
@@ -62,11 +63,12 @@ const components = ref([
 }
 
 header {
-  background-color: #fd1111;
-  color: white;
+  color: rgb(0, 0, 0);
   text-align: center;
   padding:   20px   0;
   border-bottom: 2px solid white;
+  position: relative;
+  z-index: 1;
 }
 
 main {
